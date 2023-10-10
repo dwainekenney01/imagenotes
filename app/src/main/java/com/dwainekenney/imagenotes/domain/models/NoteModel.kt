@@ -5,4 +5,6 @@ data class NoteModel(
     val noteImageUri: String?,
     val createdTimestamp: Long,
     val lastEditedTimestamp: Long
-)
+) {
+    val firstLine = noteText.split("\n").first()
+}

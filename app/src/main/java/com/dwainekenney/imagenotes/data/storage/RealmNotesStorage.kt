@@ -9,7 +9,7 @@ class RealmNotesStorage @Inject constructor(
 ) : NotesStorage {
     override fun getAllNotes(): List<NoteModel> {
         return listOf(
-            NoteModel("note", null, 0, 10)
+            NoteModel("note text is very long there is a lot of text here sososososossososdf  sdfsdfa asdfa", null, 0, 10)
         )
     }
 
