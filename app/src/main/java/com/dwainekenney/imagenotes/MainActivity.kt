@@ -4,11 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,6 +14,8 @@ import androidx.navigation.navArgument
 import com.dwainekenney.imagenotes.ui.navigation.Routes
 import com.dwainekenney.imagenotes.ui.screens.notes.NotesScreen
 import com.dwainekenney.imagenotes.ui.screens.notes.NotesViewModel
+import com.dwainekenney.imagenotes.ui.screens.settings.SettingsScreen
+import com.dwainekenney.imagenotes.ui.screens.settings.SettingsViewModel
 import com.dwainekenney.imagenotes.ui.theme.ImageNotesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,7 +63,8 @@ class MainActivity : ComponentActivity() {
             composable(
                 route = Routes.settingsRoute()
             ) {
-
+                val settingsViewModel: SettingsViewModel by viewModels()
+                SettingsScreen(viewModel = settingsViewModel, navController = navController)
             }
         }
     }
