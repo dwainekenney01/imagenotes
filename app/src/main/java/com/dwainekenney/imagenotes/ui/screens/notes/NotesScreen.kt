@@ -25,6 +25,7 @@ import com.dwainekenney.imagenotes.R
 import com.dwainekenney.imagenotes.domain.models.NoteModel
 import com.dwainekenney.imagenotes.ui.composables.MainScaffold
 import com.dwainekenney.imagenotes.ui.composables.MainScaffoldRoute
+import com.dwainekenney.imagenotes.ui.navigation.Routes
 
 @Composable
 fun NotesScreen(
@@ -37,7 +38,7 @@ fun NotesScreen(
         scaffoldRoute = MainScaffoldRoute.NOTES,
         navController = navController,
         enableNewNoteCreation = true,
-        onCreateNewNote = { /*TODO*/ }
+        createNewNote = viewModel::createNewNote
     ) {
         if (notes.isEmpty()) {
             NoNotesView()
@@ -46,7 +47,7 @@ fun NotesScreen(
                 items(notes) {
                     NotePreview(
                         note = it,
-                        onSelectNote = {}
+                        onSelectNote = { navController.navigate(Routes.noteRoute(it.id)) }
                     )
                 }
             }
@@ -62,8 +63,8 @@ private fun NotePreview(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .clickable { onSelectNote() }
+            .padding(8.dp)
     ) {
         note.noteImageUri?.let {
             // TODO: Glide

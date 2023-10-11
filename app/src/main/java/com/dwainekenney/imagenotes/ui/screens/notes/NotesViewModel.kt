@@ -24,5 +24,11 @@ class NotesViewModel @Inject constructor(
         val notes: List<NoteModel>
     )
 
-
+    // Returns the id of the newly-created note
+    fun createNewNote(): String {
+        return NoteModel().let {
+            notesRepository.saveNote(it)
+            it.id
+        }
+    }
 }

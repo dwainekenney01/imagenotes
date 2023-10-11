@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.TextUnit
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -57,8 +59,9 @@ class MainActivity : ComponentActivity() {
                         type = NavType.StringType
                     }
                 )
-            ) {
-
+            ) { backStackEntry ->
+                val id = requireNotNull(backStackEntry.arguments?.getString(Routes.ID_ARG_KEY))
+                Text(text = id)
             }
             composable(
                 route = Routes.settingsRoute()

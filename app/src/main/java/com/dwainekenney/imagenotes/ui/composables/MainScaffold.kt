@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +38,7 @@ fun MainScaffold(
     scaffoldRoute: MainScaffoldRoute,
     navController: NavController,
     enableNewNoteCreation: Boolean = false,
-    onCreateNewNote: (() -> Unit)? = null,
+    createNewNote: (() -> String)? = null,
     content: @Composable () -> Unit
 ) {
     Scaffold(
@@ -56,6 +58,23 @@ fun MainScaffold(
                     navController.navigate(route)
                 }
             )
+        },
+        floatingActionButton = {
+            if (enableNewNoteCreation) {
+                FloatingActionButton(
+                    onClick = {
+                        createNewNote?.let {
+                            val newNoteId = it.invoke()
+                            navController.navigate(Routes.noteRoute(newNoteId))
+                        }
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Add,
+                        contentDescription = null
+                    )
+                }
+            }
         }
     ) { padding ->
         Column(
