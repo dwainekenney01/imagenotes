@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.unit.TextUnit
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -14,6 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.dwainekenney.imagenotes.ui.navigation.Routes
+import com.dwainekenney.imagenotes.ui.screens.note.NoteScreen
+import com.dwainekenney.imagenotes.ui.screens.note.NoteViewModel
 import com.dwainekenney.imagenotes.ui.screens.notes.NotesScreen
 import com.dwainekenney.imagenotes.ui.screens.notes.NotesViewModel
 import com.dwainekenney.imagenotes.ui.screens.settings.SettingsScreen
@@ -50,6 +53,9 @@ class MainActivity : ComponentActivity() {
                 route = Routes.notesRoute()
             ) {
                 val notesViewModel: NotesViewModel by viewModels()
+                LaunchedEffect(Unit) {
+                    notesViewModel.refresh()
+                }
                 NotesScreen(viewModel = notesViewModel, navController = navController)
             }
             composable(
@@ -61,7 +67,9 @@ class MainActivity : ComponentActivity() {
                 )
             ) { backStackEntry ->
                 val id = requireNotNull(backStackEntry.arguments?.getString(Routes.ID_ARG_KEY))
-                Text(text = id)
+                val noteViewModel: NoteViewModel by viewModels()
+                noteViewModel.initViewModel(id)
+                NoteScreen(viewModel = noteViewModel, navController = navController)
             }
             composable(
                 route = Routes.settingsRoute()

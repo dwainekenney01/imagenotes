@@ -24,7 +24,7 @@ fun SettingsScreen(
     val (isAutoSaveEnabled) = viewModel.viewState.collectAsState().value
 
     MainScaffold(
-        scaffoldRoute = MainScaffoldRoute.NOTES,
+        scaffoldRoute = MainScaffoldRoute.SETTINGS,
         navController = navController
     ) {
         Column {

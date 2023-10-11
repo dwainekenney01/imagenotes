@@ -2,6 +2,7 @@ package com.dwainekenney.imagenotes.ui.screens.notes
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,9 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.dwainekenney.imagenotes.R
 import com.dwainekenney.imagenotes.domain.models.NoteModel
@@ -67,14 +71,22 @@ private fun NotePreview(
             .padding(8.dp)
     ) {
         note.noteImageUri?.let {
-            // TODO: Glide
+            // TODO: Add image selection using Glide
         }
-        Text(
-            modifier = Modifier.weight(1f),
-            text = note.firstLine,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = note.firstLine.ifBlank { stringResource(id = R.string.empty_note) },
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                fontSize = 16.sp,
+                fontStyle = if (note.firstLine.isBlank()) FontStyle.Italic else FontStyle.Normal
+            )
+            Text(
+                text = stringResource(id = R.string.last_edited, note.lastEditedString),
+                fontSize = 12.sp,
+                color = Color.Gray
+            )
+        }
         Icon(
             imageVector = Icons.Filled.KeyboardArrowRight, 
             contentDescription = null

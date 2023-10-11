@@ -3,8 +3,12 @@
 
     <string name="notes_screen_title">Notes</string>
     <string name="settings_screen_title">Settings</string>
+    <string name="editing_note_screen_title">Editing Note</string>
 
     <string name="no_notes">No Notes</string>
+    <string name="note_saved">Note saved!</string>
+    <string name="last_edited">Last edited: %1$s</string>
+    <string name="empty_note">Empty note</string>
 
     <string name="auto_save_preference_title">Auto-save</string>
 </resources>

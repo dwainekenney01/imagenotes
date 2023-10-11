@@ -9,7 +9,7 @@ class NotesRepository @Inject constructor(
     private val notesStorage: NotesStorage
 ) {
 
-    fun getAllNotes() = notesStorage.getAllNotes()
+    fun getAllNotes() = notesStorage.getAllNotes().sortedByDescending { it.lastEditedTimestamp }
 
     fun getNote(id: String) = notesStorage.getNote(id)
 

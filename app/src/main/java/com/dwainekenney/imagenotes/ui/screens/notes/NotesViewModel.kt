@@ -6,6 +6,7 @@ import com.dwainekenney.imagenotes.domain.repository.NotesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,5 +31,9 @@ class NotesViewModel @Inject constructor(
             notesRepository.saveNote(it)
             it.id
         }
+    }
+
+    fun refresh() {
+        _viewState.update { it.copy(notes = notesRepository.getAllNotes()) }
     }
 }
